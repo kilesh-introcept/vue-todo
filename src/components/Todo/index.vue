@@ -2,7 +2,7 @@
     <div class="grid bg-white rounded shadow-lg overflow-hidden w-30r gap-2 ">
         <div class="p-3">
             <div class="flex justify-between items-center gap-2">
-                <input @keyup="error=false" @keyup.enter='addTodo' class="p-3 outline-none w-full bg-gray-100 rounded-sm" type="text" placeholder="Add Todo" v-model="todo">
+                <input @keyup="error=false" @keyup.enter='addTodo' class="p-3 outline-none w-full bg-gray-100 rounded" type="text" placeholder="Add Todo" v-model="todo">
                 <button @click="addTodo" class="btn-icon btn-success "><font-awesome-icon icon="fa-solid fa-plus" /></button>
             </div>
             <p v-if="error" class="text-red-600 font-semibold mt-1">Input field cannot be empty.</p>
@@ -25,6 +25,7 @@ export default {
     data: function(){
         return {
             todo:"",
+            editedTodo:null,
             todos: [
                 {
                     id: uid(),
@@ -51,12 +52,18 @@ export default {
                 this.error = true
                 return
             }
-            this.todos.push({
-                id: uid(),
-                title:this.todo,
-                completed:false,
-            })
+            if(this.editedTodo===null){
+                this.todos.push({
+                    id: uid(),
+                    title: this.todo,
+                    completed: false
+                })
             this.todo = ""
+            }else{
+                (this.todos.find(todo => todo.id === this.editedTodo).title = this.todo)
+                this.todo=""
+                this.editedTodo = null
+            }
         },
 
         deleteTodo(id){
@@ -73,6 +80,7 @@ export default {
         },
         editTodo(id){
             this.todo = this.todos.find(todo => todo.id === id).title
+            this.editedTodo = id
             console.log(this.todo);
         }
     }

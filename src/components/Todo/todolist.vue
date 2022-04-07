@@ -16,7 +16,6 @@
                     <button v-else @click="updateTodo(todo.id)" class="btn-icon btn-primary"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
                     <button @click="editTodo(todo.id)" class="btn-icon btn-danger"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                     <button @click="deleteTodo(todo.id)" class="btn-icon btn-danger"><font-awesome-icon icon="fa-solid fa-trash" /></button>
-
                 </div>  
                 </td>
             </tr>
