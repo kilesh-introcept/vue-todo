@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TodoPage from "./view/todoPage.vue"
+import TodoPage from "./Page/todoPage.vue"
 export default {
   name: 'app',
   data () {

@@ -1,10 +1,17 @@
 <template>
     <div class="grid bg-white rounded shadow-lg overflow-hidden w-30r gap-2 ">
         <div class="p-3">
-            <div class="text-center text-2xl text-primary-dark mb-2">Todo List</div>
+            <div class="text-center text-2xl text-primary-dark mb-2 font-bold">Todo List</div>
             <div class="flex justify-between items-center gap-2 relative">
-                <input @keyup="error=false" @keyup.enter='addTodo' class="p-2 outline-none w-full bg-gray-100 rounded" type="text" placeholder="Add Todo" v-model="todo">
-                <button @click="addTodo" class="btn-icon btn-success absolute right-2 "><font-awesome-icon icon="fa-solid fa-plus" /></button>
+                <input
+                    @keyup="error=false" 
+                    @keyup.enter='addTodo' 
+                    class="p-2 pr-12 outline-none w-full bg-gray-100 rounded" 
+                    type="text" placeholder="Add Todo" v-model="todo"
+                >
+                <button @click="addTodo" class="btn-icon btn-success absolute right-2 ">
+                    <font-awesome-icon icon="fa-solid fa-plus" />
+                </button>
             </div>
             <p v-if="error" class="text-red-600 font-semibold mt-1">Input field cannot be empty.</p>
         </div>
@@ -13,7 +20,7 @@
         </div>
 
         <div v-if="isModalVisible">
-            <Modal />
+            <Modal title="Todo details" :toggleTodo="toggleTodo" :data="todoData" :addTodo="addTodo" :error="error" :editTodo="editTodo"/>
         </div>
     </div>
 </template>
@@ -37,50 +44,77 @@
                     {
                         id: uid(),
                         title: "Learn Vue",
-                        completed: false
+                        completed: false,
+                        createdAt:"Fri Apr 08 2022 16:51:22 GMT+0545 (Nepal Time)",
+                        editedAt:null
                     },
                     {
                         id: uid(),
                         title: "Learn Vuex",
-                        completed: false
+                        completed: false,
+                        createdAt:"Fri Apr 08 2022 16:51:22 GMT+0545 (Nepal Time)",
+                        editedAt:null
+
+
+
                     },
                     {
                         id: uid(),
                         title: "Learn Vue Router",
-                        completed: false
+                        completed: false,
+                        createdAt:"Fri Apr 08 2022 16:51:22 GMT+0545 (Nepal Time)",
+                        editedAt:null
+
+
                     }
                 ],
+                todoData:null,
                 error: false,
                 isModalVisible: false,
             }
         },
         methods: {
             addTodo(){
-                if(this.todo.length === 0 ) {
+                if(this.todo.length === 0) {
                     this.error = true
+                    setTimeout(() => {
+                        this.error = false
+                    }, 6000)
                     return
                 }
                 if(this.editedTodo===null){
                     this.todos.push({
                         id: uid(),
                         title: this.todo,
-                        completed: false
+                        completed: false,
+                        createdAt: new Date(),
+                        editedAt: null
                     })
                 this.todo = ""
                 }else{
-                    (this.todos.find(todo => todo.id === this.editedTodo).title = this.todo)
+                    const editedTodo=this.todos.find(todo => todo.id === this.editedTodo)
+                    console.log(editedTodo);
+                    editedTodo.title = this.todo
+                    editedTodo.editedAt= new Date()
+                    editedTodo.completed = false
                     this.todo=""
                     this.editedTodo = null
+                    console.log(editedTodo);
                 }
             },
+            toggleTodo(){
+                this.isModalVisible = !this.isModalVisible
+            },
             viewTodo(todo){
-                this.isModalVisible = true
-                // this.todo = todo.title
+                this.toggleTodo()
                 console.log(todo)
+                this.todoData=todo
             },
 
             deleteTodo(id){
-                this.todos = this.todos.filter(todo => todo.id !== id)
+                // this.todos = this.todos.filter(todo => todo.id !== id)
+                this.todos.splice(this.todos.indexOf(id), 1)
+
             },
             updateTodo(id){
                 this.todos = this.todos.map(todo => {
@@ -92,9 +126,9 @@
                 
             },
             editTodo(id){
+                console.log(id);
                 this.todo = this.todos.find(todo => todo.id === id).title
                 this.editedTodo = id
-                console.log(this.todo);
             }
         }
     }

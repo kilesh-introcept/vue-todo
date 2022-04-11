@@ -8,7 +8,7 @@ import { faUserSecret, faCheck, faTrash, faPlus, faXmark, faPenToSquare, faEllip
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUserSecret, faCheck, faTrash, faPlus, faXmark, faPenToSquare, faEllipsisVertical)
+library.add(faUserSecret, faCheck, faTrash, faPlus, faXmark, faPenToSquare, faEllipsisVertical, faXmark)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)

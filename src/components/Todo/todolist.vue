@@ -7,7 +7,7 @@
                 <td class="p-4 min-h-10 list-none text-center" v-if="todos.length === 0">Nothing to do</td>
             </tr>
             <tr  v-for="(todo,index,) in todos.slice().reverse()" :key="index" class="py-2 px-4 cursor-pointer flex justify-between items-center">
-                <td style="w-6/12">
+                <td class="w-9/12 break-words">
                     <div @click="viewTodo(todo)" :class="{'line-through':todo.completed}">{{todo.title}}</div>    
                 </td>
                 <td>
