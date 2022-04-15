@@ -64,8 +64,6 @@
                         completed: false,
                         createdAt:"Fri Apr 08 2022 16:51:22 GMT+0545 (Nepal Time)",
                         editedAt:null
-
-
                     }
                 ],
                 todoData:null,
@@ -93,13 +91,11 @@
                 this.todo = ""
                 }else{
                     const editedTodo=this.todos.find(todo => todo.id === this.editedTodo)
-                    console.log(editedTodo);
                     editedTodo.title = this.todo
                     editedTodo.editedAt= new Date()
                     editedTodo.completed = false
                     this.todo=""
                     this.editedTodo = null
-                    console.log(editedTodo);
                 }
             },
             toggleTodo(){
@@ -107,7 +103,6 @@
             },
             viewTodo(todo){
                 this.toggleTodo()
-                console.log(todo)
                 this.todoData=todo
             },
 
